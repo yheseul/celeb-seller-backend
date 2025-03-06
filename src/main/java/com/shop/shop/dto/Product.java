@@ -1,13 +1,13 @@
 package com.shop.shop.dto;
 
 public class Product {
-    private String name;        // prodname -> name
-    private String imageUrl;    // pimg -> imageUrl
-    private String createdAt;   // created_at -> createdAt
-    private int id;             // prodcode -> id
+    private String name;
+    private String imageUrl;
+    private long createdAt;
+    private int id;
     private int price;
 
-    public Product(String name, String imageUrl, int id, int price, String createdAt) {
+    public Product(String name, String imageUrl, int id, int price, long createdAt) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.id = id;
@@ -57,11 +57,11 @@ public class Product {
         this.price = price;
     }
 
-    public String getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
 }

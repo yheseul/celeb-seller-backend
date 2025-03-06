@@ -40,7 +40,7 @@ public class ProductDao {
 				String name = rs.getString("prodname");
 				String imageUrl=rs.getString("pimg");
 				int price=rs.getInt("price");
-				String createdAt=rs.getString("created_at");
+				long createdAt=rs.getLong("created_at");
 				
 				list.add(new Product(name, imageUrl, id, price, createdAt));
 			}
