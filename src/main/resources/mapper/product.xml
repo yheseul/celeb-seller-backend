@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.shop.shop.dao.ProductDao">
+
+  <resultMap id="productResultMap" type="com.shop.shop.dto.Product">
+    <result column="prodcode" property="id"/>
+    <result column="prodname" property="name"/>
+    <result column="pimg" property="imageUrl"/>
+    <result column="price" property="price"/>
+    <result column="created_at" property="createdAt"/>
+  </resultMap>
+
+  <select id="getAllProducts" resultMap="productResultMap">
+    select * from product
+  </select>
+  
+  <insert id="insertProduct" parameterType="product">
+  	insert into product(prodname, price, pimg, created_at) values(#{name}, #{price}, #{imageUrl}, #{createdAt})
+  </insert>
+
+</mapper>
