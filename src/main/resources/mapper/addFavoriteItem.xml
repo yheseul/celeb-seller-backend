@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.shop.shop.dao.AddFavoriteItemDao">
+
+
+  <resultMap id="addFavoriteItemsResultMap" type="com.shop.shop.dto.AddFavoriteItem">
+    <result column="product_id" property="productId"/>
+    <result column="email" property="email"/>
+  </resultMap>
+
+
+  <select id="getAllAddFavoriteItems" resultMap="addFavoriteItemsResultMap">
+    select * from cart_items
+  </select>
+  
+  <insert id="insertAddFavoriteItem" parameterType="addFavoriteItem">
+   insert into add_favorite_items(email, product_id) values(#{email}, #{productId})
+  </insert>
+
+</mapper>
