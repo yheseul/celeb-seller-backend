@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,25 +24,22 @@ public class MemberController {
 	MemberService memberService;
 	
 	@PostMapping("login")
-	public Map<String, String> login(@RequestBody Member m, HttpServletRequest request) {
-		System.out.println(m);
-		Map<String,String> responseData=new HashMap();
+	public ResponseEntity<String> login(@RequestBody Member m, HttpServletRequest request) {
 		try {
 			m=memberService.login(m);
 			if(m!=null) {
 				HttpSession session=request.getSession();
-				System.out.println(session.getId());
 				session.setAttribute("member", m);
-				responseData.put("msg","로그인 성공");
+				return ResponseEntity.ok().body("로그인 성공");
 			}else {
 				// 뭔가.. 그 아디나 비번 틀렸다는 정확한 피드백주기...ㅇㅅㅇ(or 없는 계정);
-				responseData.put("msg","다시 로그인 해주세요");
+				return ResponseEntity.status(401).body("다시 로그인 해주세요");
 			}
 		} catch (Exception e) {			
 			e.printStackTrace();
-			responseData.put("msg","다시 로그인 해주세요");
+
+			return ResponseEntity.status(500).body("서버 오류, 다시 시도해주세요.");
 		}
-		return responseData;
 	}
 	
 	@PostMapping("insertMember")
@@ -57,4 +56,15 @@ public class MemberController {
 		
 		return responseData;
 	}
+	
+	@GetMapping("getLoggedInUser")
+	public Member getLoggedInUser(HttpServletRequest request) {
+	    HttpSession session = request.getSession(true);
+	    if(session != null) {
+	        Member member = (Member) session.getAttribute("member");
+	        return member;
+	    }
+	    return null;
+	}
+
 }
