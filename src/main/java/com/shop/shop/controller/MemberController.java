@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shop.shop.dto.Member;
 import com.shop.shop.service.MemberService;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
@@ -30,6 +32,7 @@ public class MemberController {
 			if(m!=null) {
 				HttpSession session=request.getSession();
 				session.setAttribute("member", m);
+				
 				return ResponseEntity.ok().body("로그인 성공");
 			}else {
 				// 뭔가.. 그 아디나 비번 틀렸다는 정확한 피드백주기...ㅇㅅㅇ(or 없는 계정);
